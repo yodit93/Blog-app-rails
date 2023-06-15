@@ -1,1 +1,14 @@
-Here is the content of each post with comments.
+<div class='content' >
+    <div class='content-holder border'>
+        <div class='post-header'>
+            <span>Post #<%= @post.id%> by <%= @user.name%></span>
+            <span class='counter'>Comments: <%= @post.comments_counter%>, Likes: <%= @post.likes_counter%></span>  
+        </div>
+        <p><%= @post.text%></p>
+    </div>
+    <ul class='comments border space'>
+        <% @post.comments.each do |comment|%>
+            <li class='comment'><%=comment.author.name%>: <%=comment.text%></li>
+        <%end%> 
+    </ul>
+</div>
