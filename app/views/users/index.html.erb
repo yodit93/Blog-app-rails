@@ -1,1 +1,14 @@
-Here are list of users with number of posts.
+<ul class="users">
+  <% @users.each do |user| %>
+    <li class='user'>
+      <img class='photo border' src=<%= user.photo%>/>
+      <div class='user-info border'>
+        <h2><%= user.name%></h2>
+        <p>Number of posts: <%= user.posts_counter%></p>
+      </div>  
+    </li>
+  <% end %>
+</ul>
+
+    
+
