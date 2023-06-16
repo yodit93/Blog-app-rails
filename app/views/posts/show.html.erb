@@ -12,3 +12,6 @@
         <%end%> 
     </ul>
 </div>
+
+<%= link_to "Add Comment ", new_user_post_comment_path(@user, @post)%>
+<%= render 'likes/form' %>

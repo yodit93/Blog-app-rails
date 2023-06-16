@@ -125,3 +125,13 @@ ul {
 .counter {
   font-size: 11px;
 }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 20vh;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+}

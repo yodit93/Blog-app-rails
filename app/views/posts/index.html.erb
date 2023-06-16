@@ -11,18 +11,17 @@
         <p><%= @user.bio%></p>
     </div>
     <ul class='posts'>
-        <% @user.recent_posts.each do |post|%>
+        <% @posts.each do |post|%>
             <li class='post border'>
                 <h3>Post #<%= post.id%></h3>
                 <p><%=post.text%></p>
                 <span>Comments: <%= post.comments_counter%>, Likes: <%= post.likes_counter%></span>
             </li>
             <ul class='comments border'>
-                <% @posts.each do |post|%>
-                    <% post.recent_comments.each do |comment|%>
-                        <li class='comment'><%=comment.author.name%>: <%=comment.text%></li>
-                    <%end%>
+                <% post.recent_comments.each do |comment|%>
+                    <li class='comment'><%=comment.author.name%>: <%=comment.text%></li>
                 <%end%>
+               
             </ul>
         <%end%>
     </ul>
