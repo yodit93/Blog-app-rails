@@ -1,7 +1,7 @@
 <%= form_with(model: @post, url: user_posts_path) do |form| %>
   <div class='field'>
     <div id='title'><%= form.text_field :title %></div>
-    <%= form.text_area :content %>
+    <%= form.text_area :text %>
     <%= form.submit 'Create Post' %>
   </div>
 <% end %>
