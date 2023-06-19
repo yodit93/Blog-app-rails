@@ -13,7 +13,7 @@
     <ul class='posts'>
         <% @posts.each do |post|%>
             <li class='post border'>
-                <h3>Post #<%= post.id%></h3>
+                <h3><%= link_to "Post ##{post.id}", user_post_path(@user, post)%></h3>
                 <p><%=post.text%></p>
                 <span>Comments: <%= post.comments_counter%>, Likes: <%= post.likes_counter%></span>
             </li>
