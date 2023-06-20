@@ -11,7 +11,7 @@
         <p><%= @user.bio%></p>
     </div>
     <ul class='posts'>
-        <% @posts.each do |post|%>
+        <% @posts.includes(:comments).each do |post|%>
             <li class='post border'>
                 <h3><%= link_to "Post ##{post.id}", user_post_path(@user, post)%></h3>
                 <p><%=post.text%></p>
