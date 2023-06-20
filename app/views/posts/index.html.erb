@@ -11,7 +11,7 @@
         <p><%= @user.bio%></p>
     </div>
     <ul class='posts'>
-        <% @posts.each do |post|%>
+        <% @posts.includes(:comments).each do |post|%>
             <li class='post border'>
                 <h3><%= link_to "Post ##{post.id}", user_post_path(@user, post)%></h3>
                 <p><%=post.text%></p>
@@ -20,10 +20,9 @@
             <ul class='comments border'>
                 <% post.recent_comments.each do |comment|%>
                     <li class='comment'><%=comment.author.name%>: <%=comment.text%></li>
-                <%end%>
-               
+                <%end%>    
             </ul>
         <%end%>
     </ul>
-    <button class='see-all' type='button'>Pagination</button>
+    <button class='see-all, pagination' type='button'>Pagination</button>
 </section>
