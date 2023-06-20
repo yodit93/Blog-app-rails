@@ -20,10 +20,9 @@
             <ul class='comments border'>
                 <% post.recent_comments.each do |comment|%>
                     <li class='comment'><%=comment.author.name%>: <%=comment.text%></li>
-                <%end%>
-               
+                <%end%>    
             </ul>
         <%end%>
     </ul>
-    <button class='see-all' type='button'>Pagination</button>
+    <button class='see-all, pagination' type='button'>Pagination</button>
 </section>
