@@ -19,6 +19,8 @@
             </li>
         <%end%>
     </ul>
-    <button class='new-post' type='button'><%= link_to 'Add post', new_user_post_path(@user) %></button>
+    <%if current_user == @user%>
+        <button class='new-post' type='button'><%= link_to 'Add post', new_user_post_path(@user) %></button>
+    <%end%>
     <button class='see-all' type='button'><%= link_to 'See all posts', user_posts_path(@user) %></button>
 </section>
