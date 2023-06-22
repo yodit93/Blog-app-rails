@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @user = User.find(params[:user_id])
     @posts = @user.posts
@@ -22,6 +24,14 @@ class PostsController < ApplicationController
       # Handle validation errors
       render :new
     end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    puts 'destroying post'
+    @post.comments.destroy_all
+    @post.destroy
+    redirect_to user_posts_path(current_user), notice: 'Post deleted successfully.'
   end
 
   private
