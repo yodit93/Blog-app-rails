@@ -10,6 +10,9 @@
         <% @post.comments.each do |comment|%>
             <li class='comment'>
                 <span><%=comment.author.name%>: <%=comment.text%></span>
+                <% if can? :destroy, @post%>
+                    <span><%= button_to 'Delete', user_post_comment_path(@user, @post, comment), method: :delete%></span>
+                <%end%>
             </li>
         <%end%> 
     </ul>
