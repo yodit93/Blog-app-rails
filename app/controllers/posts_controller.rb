@@ -31,6 +31,8 @@ class PostsController < ApplicationController
     puts 'destroying post'
     @post.comments.destroy_all
     @post.destroy
+    user_posts_counter = current_user.posts_counter
+    current_user.update(posts_counter: user_posts_counter - 1)
     redirect_to user_posts_path(current_user), notice: 'Post deleted successfully.'
   end
 
