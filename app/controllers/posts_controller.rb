@@ -28,7 +28,6 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    puts 'destroying post'
     @post.comments.destroy_all
     @post.destroy
     user_posts_counter = current_user.posts_counter
