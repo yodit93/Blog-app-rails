@@ -19,8 +19,10 @@
             </li>
             <ul class='comments border'>
                 <% post.recent_comments.each do |comment|%>
-                    <li class='comment'><%=comment.author.name%>: <%=comment.text%></li>
-                <%end%>    
+                    <li class='comment'>
+                        <span><%=comment.author.name%>: <%=comment.text%></span>
+                    </li>
+                <%end%>
             </ul>
         <%end%>
     </ul>

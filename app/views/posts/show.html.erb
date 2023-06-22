@@ -8,10 +8,18 @@
     </div>
     <ul class='comments border space'>
         <% @post.comments.each do |comment|%>
-            <li class='comment'><%=comment.author.name%>: <%=comment.text%></li>
+            <li class='comment'>
+                <span><%=comment.author.name%>: <%=comment.text%></span>
+                <% if can? :destroy, comment%>
+                    <span><%= button_to 'Delete', user_post_comment_path(@user, @post, comment), method: :delete%></span>
+                <%end%>
+            </li>
         <%end%> 
     </ul>
 </div>
+<% if can? :destroy, @post%>
+    <%= button_to 'Delete Post',  user_post_path(@user, @post), method: :delete %>
+<%end%>
 
 <%= link_to "Add Comment ", new_user_post_comment_path(@user, @post)%>
 <%= render 'likes/form' %>
