@@ -10,6 +10,7 @@ class Ability
     can :manage, Comment, author_id: user.id # logged users can destroy their own comments
     return unless user.admin?
 
-    can :manage, :all # admin can manage any post
+    can :destroy, Post # admin can detroy any post
+    can :destroy, Comment # admin can destroy any comment
   end
 end
