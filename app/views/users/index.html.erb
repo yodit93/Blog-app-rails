@@ -3,7 +3,7 @@
     <li class='user'>
       <img class='photo border' src=<%= user.photo%>/>
       <div class='user-info border'>
-          <h2><%= link_to user.name, user %></h2>
+          <h2><%= link_to user.name, api_v1_user_path(user) %></h2>
         </a>
         <p>Number of posts: <%= user.posts_counter%></p>
       </div>  
