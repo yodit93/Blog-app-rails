@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :show] do
         resources :posts do
-          resources :comments, only: [:new, :create, :destroy]
+          resources :comments
           resources :likes, only: [:create]
         end
       end
