@@ -14,15 +14,15 @@ RSpec.describe 'Blog API', type: :request do
                  properties: {
                    id: { type: :integer },
                    name: { type: :string },
-                   photo: {type: :string},
-                   bio: {type: :string},
-                   posts_counter: {type: :string},
+                   photo: { type: :string },
+                   bio: { type: :string },
+                   posts_counter: { type: :string },
                    created_at: { type: :string, format: 'date' },
                    updated_at: { type: :string, format: 'date' },
                    email: { type: :string },
-                   role: {type: :string}
+                   role: { type: :string }
                  },
-                 required: ['id', 'name', 'email']
+                 required: %w[id name email]
                }
 
         run_test! do
@@ -43,18 +43,18 @@ RSpec.describe 'Blog API', type: :request do
 
       response '200', 'OK' do
         schema type: :object,
-        properties: {
-          id: { type: :integer },
-          name: { type: :string },
-          photo: {type: :string},
-          bio: {type: :string},
-          posts_counter: {type: :string},
-          created_at: { type: :string, format: 'date' },
-          updated_at: { type: :string, format: 'date' },
-          email: { type: :string },
-          role: {type: :string}
-        },
-        required: ['id', 'name', 'email']
+               properties: {
+                 id: { type: :integer },
+                 name: { type: :string },
+                 photo: { type: :string },
+                 bio: { type: :string },
+                 posts_counter: { type: :string },
+                 created_at: { type: :string, format: 'date' },
+                 updated_at: { type: :string, format: 'date' },
+                 email: { type: :string },
+                 role: { type: :string }
+               },
+               required: %w[id name email]
 
         run_test! do
           # Fetches a user by ID
@@ -80,16 +80,16 @@ RSpec.describe 'Blog API', type: :request do
                items: {
                  type: :object,
                  properties: {
-                  id: { type: :integer },
-                  title: { type: :string },
-                  text: { type: :string },
-                  author_id: { type: :integer },
-                  comments_counter: { type: :integer },
-                  likes_counter: { type: :integer },
-                  created_at: { type: :string, format: 'date' },
-                  updated_at: { type: :string, format: 'date' }
+                   id: { type: :integer },
+                   title: { type: :string },
+                   text: { type: :string },
+                   author_id: { type: :integer },
+                   comments_counter: { type: :integer },
+                   likes_counter: { type: :integer },
+                   created_at: { type: :string, format: 'date' },
+                   updated_at: { type: :string, format: 'date' }
                  },
-                 required: ['id', 'title', 'text', 'author_id']
+                 required: %w[id title text author_id]
                }
 
         run_test! do
@@ -115,16 +115,16 @@ RSpec.describe 'Blog API', type: :request do
       response '200', 'OK' do
         schema type: :object,
                properties: {
-                id: { type: :integer },
-                title: { type: :string },
-                text: { type: :string },
-                author_id: { type: :integer },
-                comments_counter: { type: :integer },
-                likes_counter: { type: :integer },
-                created_at: { type: :string, format: 'date' },
-                updated_at: { type: :string, format: 'date' }
+                 id: { type: :integer },
+                 title: { type: :string },
+                 text: { type: :string },
+                 author_id: { type: :integer },
+                 comments_counter: { type: :integer },
+                 likes_counter: { type: :integer },
+                 created_at: { type: :string, format: 'date' },
+                 updated_at: { type: :string, format: 'date' }
                },
-               required: ['id', 'title', 'text', 'user_id']
+               required: %w[id title text user_id]
 
         run_test! do
           # Fetches a post by ID
@@ -137,7 +137,7 @@ RSpec.describe 'Blog API', type: :request do
       end
     end
   end
-  
+
   path '/api/v1/users/{user_id}/posts/{post_id}/comments' do
     parameter name: :user_id, in: :path, type: :integer, required: true
     parameter name: :post_id, in: :path, type: :integer, required: true
@@ -157,22 +157,25 @@ RSpec.describe 'Blog API', type: :request do
                    user_id: { type: :integer },
                    post_id: { type: :integer }
                  },
-                 required: ['id', 'text', 'user_id', 'post_id']
+                 required: %w[id text user_id post_id]
                }
 
         run_test! do
           # Fetch all comments of a post
-          user = User.first
-          post = Post.create(title: 'Sample Post', text: 'Sample Text', author: user)
+          post = Post.create(title: 'Sample Post', text: 'Sample Text')
           Comment.create(text: 'Sample Comment 1', user_id: 1, post_id: post.id)
           Comment.create(text: 'Sample Comment 2', user_id: 2, post_id: post.id)
 
-          get "/api/v1/users/#{user.id}/posts/#{post.id}/comments"
+          get "/api/v1/users/#{post.user_id}/posts/#{post.id}/comments"
           expect(response).to have_http_status(:ok)
         end
       end
     end
+  end
 
+  path '/api/v1/users/{user_id}/posts/{post_id}/comments' do
+    parameter name: :user_id, in: :path, type: :integer, required: true
+    parameter name: :post_id, in: :path, type: :integer, required: true
     post 'Creates a comment for a post' do
       tags 'Comments'
       consumes 'application/json'
@@ -184,9 +187,8 @@ RSpec.describe 'Blog API', type: :request do
           user_id: { type: :integer },
           post_id: { type: :integer }
         },
-        required: ['text', 'user_id', 'post_id']
+        required: %w[text user_id post_id]
       }
-
       response '201', 'Created' do
         schema type: :object,
                properties: {
@@ -195,14 +197,10 @@ RSpec.describe 'Blog API', type: :request do
                  user_id: { type: :integer },
                  post_id: { type: :integer }
                },
-               required: ['id', 'text', 'user_id', 'post_id']
+               required: %w[id text user_id post_id]
 
         run_test! do
-          # Create a comment for a post
-          post = Post.create(title: 'Sample Post', text: 'Sample Text', author: User.first)
-          comment_params = { text: 'Sample Comment', user_id: 1, post_id: post.id }
-
-          post "/api/v1/users/#{post.author_id}/posts/#{post.id}/comments", params: { comment: comment_params }
+          post '/api/v1/users/1/posts/1/comments', params: { comment: { text: 'comment', author_id: 1, post_id: 1 } }
           expect(response).to have_http_status(:created)
         end
       end
