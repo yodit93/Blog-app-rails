@@ -10,6 +10,8 @@ gem 'devise'
 
 gem 'cancancan'
 
+gem 'rswag'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
