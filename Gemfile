@@ -10,8 +10,6 @@ gem 'devise'
 
 gem 'cancancan'
 
-gem 'rswag'
-
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
@@ -42,6 +40,8 @@ gem 'bootsnap', require: false
 # Add the Bootstrap gem
 gem 'bootstrap', '~> 5.0'
 
+gem 'rswag'
+gem 'json-schema'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]

@@ -311,6 +311,7 @@ DEPENDENCIES
   devise
   importmap-rails
   jbuilder
+  json-schema
   pg
   puma (~> 5.0)
   rails (~> 7.0.5)
