@@ -1,0 +1,270 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users":
+    get:
+      summary: Fetches all users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    photo:
+                      type: string
+                    bio:
+                      type: string
+                    posts_counter:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date
+                    updated_at:
+                      type: string
+                      format: date
+                    email:
+                      type: string
+                    role:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - email
+  "/api/v1/users/{id}":
+    get:
+      summary: Fetches a user by ID
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  photo:
+                    type: string
+                  bio:
+                    type: string
+                  posts_counter:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date
+                  updated_at:
+                    type: string
+                    format: date
+                  email:
+                    type: string
+                  role:
+                    type: string
+                required:
+                - id
+                - name
+                - email
+  api/v1/users/{user_id}/posts:
+    parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Fetches all posts of a user
+      tags:
+      - Posts
+      description: Fetches all posts of a user.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    text:
+                      type: string
+                    author_id:
+                      type: integer
+                    comments_counter:
+                      type: integer
+                    likes_counter:
+                      type: integer
+                    created_at:
+                      type: string
+                      format: date
+                    updated_at:
+                      type: string
+                      format: date
+                  required:
+                  - id
+                  - title
+                  - text
+                  - author_id
+  api/v1/users/{user_id}/posts/{id}:
+    parameters:
+    - name: user_id
+      in: path
+      required: true
+      description: User ID
+      schema:
+        type: integer
+    - name: id
+      in: path
+      required: true
+      description: Post ID
+      schema:
+        type: integer
+    get:
+      summary: Fetches a post by ID
+      tags:
+      - Posts
+      description: Fetches a post by its ID.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+                  text:
+                    type: string
+                  author_id:
+                    type: integer
+                  comments_counter:
+                    type: integer
+                  likes_counter:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date
+                  updated_at:
+                    type: string
+                    format: date
+                required:
+                - id
+                - title
+                - text
+                - user_id
+  "/api/v1/users/{user_id}/posts/{post_id}/comments":
+    parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: post_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Fetches all comments of a post
+      tags:
+      - Comments
+      description: Fetches all comments of a post.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    text:
+                      type: string
+                    user_id:
+                      type: integer
+                    post_id:
+                      type: integer
+                  required:
+                  - id
+                  - text
+                  - user_id
+                  - post_id
+    post:
+      summary: Creates a comment for a post
+      tags:
+      - Comments
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  text:
+                    type: string
+                  user_id:
+                    type: integer
+                  post_id:
+                    type: integer
+                required:
+                - id
+                - text
+                - user_id
+                - post_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                user_id:
+                  type: integer
+                post_id:
+                  type: integer
+              required:
+              - text
+              - user_id
+              - post_id
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
